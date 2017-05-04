@@ -27,3 +27,64 @@ console.log(getPrice(2, .07));
 document.addEventListener('click', function() {
   console.log(this); //output:  #document
 });
+
+
+document.addEventListener('click', () => console.log(this)); //output WIndow {...} this is not gonna be set to element that is
+//getting the event
+
+var invoice = {
+    number: 123,
+    process : function () {
+        console.log(this);
+    }
+};
+
+invoice.process(); // Object {} number: 123 }
+
+//context of the code running
+var invoice = {
+    number:123,
+    process: () => console.log(this)
+};
+invoice.process(); //output Window{...}
+
+//another example
+var invoice = {
+  number: 123,
+  process: function () {
+      return () => console.log(this.number);
+  }
+};
+invoice.process()(); //123 because process is the function here and that the context we are working in
+
+//bind
+var invoice = {
+  number: 123,
+  process: function () {
+      return () => console.log(this.number);
+  }
+};
+var newInvoice = {
+    number: 456
+}
+invoice.process().bind(newInvoice)(); //123 because arrow function are not gonna be able to change the value of this with bind
+
+//using call
+var invoice = {
+  number: 123,
+  process: function () {
+      return () => console.log(this.number);
+  }
+};
+var newInvoice = {
+    number: 456
+}
+invoice.process().call(newInvoice); //123
+
+//arrow functions are useless with call, bind and apply
+
+
+//do not this:
+var getPrice = ()
+    =>5.99;
+console.log(typeof getPrice);
