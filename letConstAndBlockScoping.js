@@ -24,7 +24,7 @@ function updateProductId() {
 }
 let productId4 = null;
 updateProductId();
-console.log(productId4);
+console.log(productId4); //update the productId4 from null to 12
 
 
 //let in for loops
